@@ -1,10 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cul0jw30yqmv7"]
+[gd_scene load_steps=3 format=3 uid="uid://cul0jw30yqmv7"]
 
 [ext_resource type="PackedScene" uid="uid://b511scjyws11e" path="res://scenes/tilemaps/hex_tilemap.tscn" id="1_ho06m"]
+[ext_resource type="PackedScene" uid="uid://dgfjj60ulo8mg" path="res://scenes/player/player.tscn" id="2_jflqx"]
 
 [node name="Main" type="Node2D"]
 
 [node name="HexTilemap" parent="." instance=ExtResource("1_ho06m")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-249, -128)
+[node name="Player" parent="." instance=ExtResource("2_jflqx")]
+position = Vector2(-400, -93)
