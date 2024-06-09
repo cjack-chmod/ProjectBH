@@ -1,0 +1,30 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://d4dtdyfxax518"]
+
+[ext_resource type="Texture2D" uid="uid://dgjlmdxv01otc" path="res://assets/tilemaps/hex_grid.png" id="1_y1dm7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7oief"]
+texture = ExtResource("1_y1dm7")
+margins = Vector2i(9, 8)
+separation = Vector2i(18, 0)
+texture_region_size = Vector2i(110, 96)
+0:0/next_alternative_id = 3
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/modulate = Color(0.117647, 0.117647, 0.117647, 1)
+0:0/2 = 2
+0:0/2/modulate = Color(1, 0, 1, 1)
+1:0/next_alternative_id = 2
+1:0/0 = 0
+1:0/1 = 1
+1:0/1/modulate = Color(0.639216, 0.666667, 0.431373, 1)
+2:0/next_alternative_id = 2
+2:0/0 = 0
+2:0/1 = 1
+2:0/1/modulate = Color(0.901961, 0.764706, 0.294118, 1)
+
+[resource]
+tile_shape = 3
+tile_layout = 1
+tile_offset_axis = 1
+tile_size = Vector2i(102, 94)
+sources/0 = SubResource("TileSetAtlasSource_7oief")
