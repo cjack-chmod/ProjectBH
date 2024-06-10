@@ -18,3 +18,5 @@ func _spawn_building(_pos: Vector2) -> void:
 		_scene.global_position = _pos
 
 		print("hello")
+
+		print("goodbye")
