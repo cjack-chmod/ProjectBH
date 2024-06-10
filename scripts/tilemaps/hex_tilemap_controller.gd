@@ -32,7 +32,7 @@ func _toggle_alt_cell(_pos_clicked: Vector2) -> void:
 			tile_set.get_source(MAIN_ATLAS_ID).get_alternative_tiles_count(_current_atlas_coords)
 		)
 		set_cell(
-			_main_layer,
+			MAIN_LAYER,
 			_pos_clicked,
 			MAIN_ATLAS_ID,
 			_current_atlas_coords,
