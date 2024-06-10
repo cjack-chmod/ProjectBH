@@ -16,7 +16,3 @@ func _spawn_building(_pos: Vector2) -> void:
 		var _scene: StaticBody2D = _building.instantiate()
 		self.add_child(_scene)
 		_scene.global_position = _pos
-
-		print("hello")
-
-		print("goodbye")
