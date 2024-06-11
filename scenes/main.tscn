@@ -7,6 +7,7 @@
 [node name="Main" type="Node2D"]
 
 [node name="HexTilemap" parent="." instance=ExtResource("1_ho06m")]
+can_click_tile = false
 
 [node name="Player" parent="." instance=ExtResource("2_jflqx")]
 position = Vector2(-400, -93)

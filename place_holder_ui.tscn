@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://4c6jg4p4sml3"]
+
+[ext_resource type="Script" path="res://ui/place_holder_ui.gd" id="1_7xn5n"]
+
+[node name="PlaceHolderUI" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -628.0
+offset_top = -353.0
+offset_right = 628.0
+offset_bottom = 353.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7xn5n")
+
+[node name="TogglePlayerMovement" type="Button" parent="."]
+layout_mode = 1
+offset_right = 199.0
+offset_bottom = 31.0
+text = "Toggle Player Movement"
+
+[connection signal="pressed" from="TogglePlayerMovement" to="." method="_on_toggle_player_movement_pressed"]
