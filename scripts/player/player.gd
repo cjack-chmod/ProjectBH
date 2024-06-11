@@ -98,7 +98,7 @@ func _find_and_move_to_adjacent_tile(_direction: GlobalTileFunctions.HEXDIR) -> 
 
 
 # Minus Health and die if less than 0
-func _take_damage(_damage: float) -> void:
+func take_damage(_damage: float) -> void:
 	_current_health -= _damage
 	GlobalEvents.emit_player_health_changed(_current_health, _max_health)
 	if _current_health <= 0:

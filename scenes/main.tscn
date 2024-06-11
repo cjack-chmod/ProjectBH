@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cul0jw30yqmv7"]
+[gd_scene load_steps=5 format=3 uid="uid://cul0jw30yqmv7"]
 
 [ext_resource type="PackedScene" uid="uid://b511scjyws11e" path="res://scenes/tilemaps/hex_tilemap.tscn" id="1_ho06m"]
 [ext_resource type="PackedScene" uid="uid://dgfjj60ulo8mg" path="res://scenes/player/player.tscn" id="2_jflqx"]
+[ext_resource type="PackedScene" uid="uid://bkdljm38sr1jq" path="res://scenes/game_objects/bullet/bullet.tscn" id="4_7fnsc"]
 [ext_resource type="Script" path="res://scripts/game_objects/buildings/building_spawner.gd" id="4_opsof"]
 
 [node name="Main" type="Node2D"]
@@ -14,3 +15,12 @@ position = Vector2(-400, -93)
 
 [node name="BuildingLayer" type="Node" parent="."]
 script = ExtResource("4_opsof")
+
+[node name="Bullet" parent="." instance=ExtResource("4_7fnsc")]
+position = Vector2(-17, -154)
+
+[node name="Bullet2" parent="." instance=ExtResource("4_7fnsc")]
+position = Vector2(-16, -134)
+
+[node name="Bullet3" parent="." instance=ExtResource("4_7fnsc")]
+position = Vector2(-19, -112)

@@ -1,10 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpxt2mk74udo5"]
+[gd_scene load_steps=3 format=3 uid="uid://bpxt2mk74udo5"]
+
+[ext_resource type="Script" path="res://scripts/game_objects/buildings/tower_bullet_spawner.gd" id="1_vcf2l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjc32"]
 size = Vector2(40, 54.5)
 
 [node name="ExampleTower" type="StaticBody2D"]
 z_index = 1
+script = ExtResource("1_vcf2l")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -20.0
