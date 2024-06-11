@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://4c6jg4p4sml3"]
+[gd_scene load_steps=4 format=3 uid="uid://4c6jg4p4sml3"]
 
 [ext_resource type="Script" path="res://ui/place_holder_ui.gd" id="1_7xn5n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dl6ml"]
+bg_color = Color(0.329412, 0.329412, 0.329412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eknwo"]
+bg_color = Color(0.596078, 0.054902, 0.121569, 1)
 
 [node name="PlaceHolderUI" type="Control"]
 layout_mode = 3
@@ -22,5 +28,22 @@ layout_mode = 1
 offset_right = 199.0
 offset_bottom = 31.0
 text = "Toggle Player Movement"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -176.0
+offset_top = -27.0
+offset_right = 176.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_dl6ml")
+theme_override_styles/fill = SubResource("StyleBoxFlat_eknwo")
+value = 50.0
+show_percentage = false
 
 [connection signal="pressed" from="TogglePlayerMovement" to="." method="_on_toggle_player_movement_pressed"]

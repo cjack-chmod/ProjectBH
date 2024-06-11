@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+# Health Variables
+var _max_health: float = 100.0
+var _current_health: float = 100.0
+
 # Movement Variables
 var _move_speed: float = 200.0
 
@@ -10,6 +14,8 @@ var _hex_input_paused: bool = false
 
 func _ready() -> void:
 	GlobalEvents.toggle_player_movement_mode.connect(_toggle_movement)
+	_current_health = _max_health
+	GlobalEvents.emit_player_health_changed(_current_health, _max_health)
 
 
 # Input Function To Call Movement Function When Relevant Movement Key is pressed in hex based mode
@@ -89,3 +95,16 @@ func _find_and_move_to_adjacent_tile(_direction: GlobalTileFunctions.HEXDIR) -> 
 
 	# moving to centre of that tile
 	_move_to_tile_centre(_new_tile, 0.5)
+
+
+# Minus Health and die if less than 0
+func _take_damage(_damage: float) -> void:
+	_current_health -= _damage
+	GlobalEvents.emit_player_health_changed(_current_health, _max_health)
+	if _current_health <= 0:
+		_die()
+
+
+# reload if die
+func _die() -> void:
+	get_tree().reload_current_scene()
