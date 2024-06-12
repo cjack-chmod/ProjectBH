@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cul0jw30yqmv7"]
 
-[ext_resource type="PackedScene" uid="uid://b511scjyws11e" path="res://scenes/tilemaps/hex_tilemap.tscn" id="1_ho06m"]
+[ext_resource type="PackedScene" uid="uid://b511scjyws11e" path="res://scenes/game_objects/tilemaps/hex_tilemap.tscn" id="1_ho06m"]
 [ext_resource type="PackedScene" uid="uid://dgfjj60ulo8mg" path="res://scenes/player/player.tscn" id="2_jflqx"]
 [ext_resource type="Script" path="res://scripts/game_objects/buildings/building_spawner.gd" id="4_opsof"]
 [ext_resource type="PackedScene" uid="uid://bpxt2mk74udo5" path="res://scenes/game_objects/towers/ExampleTower.tscn" id="4_yc7gc"]
