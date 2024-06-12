@@ -29,6 +29,14 @@ offset_right = 199.0
 offset_bottom = 31.0
 text = "Toggle Player Movement"
 
+[node name="ToggleBulletMode" type="Button" parent="."]
+layout_mode = 1
+offset_top = 35.0
+offset_right = 199.0
+offset_bottom = 66.0
+text = "Toggle Bullet Mode
+"
+
 [node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -47,3 +55,4 @@ value = 50.0
 show_percentage = false
 
 [connection signal="pressed" from="TogglePlayerMovement" to="." method="_on_toggle_player_movement_pressed"]
+[connection signal="pressed" from="ToggleBulletMode" to="." method="_on_toggle_bullet_mode_pressed"]

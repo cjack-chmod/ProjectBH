@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgfjj60ulo8mg"]
+[gd_scene load_steps=5 format=3 uid="uid://dgfjj60ulo8mg"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_jwbjq"]
 [ext_resource type="PackedScene" uid="uid://4c6jg4p4sml3" path="res://place_holder_ui.tscn" id="2_eo7g8"]
+[ext_resource type="AudioStream" uid="uid://4iwgafbvsued" path="res://scenes/player/547206__mrfossy__voice_adultmale_paingrunts_06.wav" id="3_pcl7i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ehlod"]
 
@@ -23,3 +24,6 @@ shape = SubResource("CapsuleShape2D_ehlod")
 zoom = Vector2(1.5, 1.5)
 
 [node name="PlaceHolderUI" parent="." instance=ExtResource("2_eo7g8")]
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_pcl7i")

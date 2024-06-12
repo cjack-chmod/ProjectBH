@@ -20,4 +20,9 @@ mesh = SubResource("SphereMesh_j30c2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CircleShape2D_pjoso")
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
