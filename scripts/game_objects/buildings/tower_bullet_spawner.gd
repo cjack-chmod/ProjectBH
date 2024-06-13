@@ -3,9 +3,9 @@ extends StaticBody2D
 # this is temporary bandaid because the tileset i was using isn't symmetrical :(
 const Y_ELONGATION: float = 1  #+ (110.0 / 96.0 - 1) / 2.5 commenting out
 
-@export var hex_shoot_speed: int = 475
 @export var hex_shoot_interval: float = 1.2
 
+var hex_shoot_speed: int = 475
 # Bullet Scene
 var _bullet: PackedScene = preload("res://scenes/game_objects/bullet/bullet.tscn")
 var _bullet_speed: float = 250.0
