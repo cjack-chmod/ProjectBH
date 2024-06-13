@@ -10,11 +10,14 @@ var _move_speed: float = 250.0
 # Flags
 var _free_move: bool = true
 var _hex_input_paused: bool = false
+var _bullets_free_shooting: bool = true
+var _bullets_jump_with_player: bool = false
 
 @onready var tile_map: TileMap = get_parent().get_node("HexTilemap")
 
 
 func _ready() -> void:
+	GlobalEvents.toogle_bullet_shoot_mode.connect(_set_hex_shoot_flags)
 	GlobalEvents.toggle_player_movement_mode.connect(_toggle_movement)
 	_current_health = _max_health
 	GlobalEvents.emit_player_health_changed(_current_health, _max_health)
@@ -127,3 +130,18 @@ func _damage_flash() -> void:
 # reload if die
 func _die() -> void:
 	get_tree().call_deferred("reload_current_scene")
+
+
+func _on_bullet_jump_timer_timeout() -> void:
+	if !_bullets_jump_with_player:
+		GlobalEvents.emit_bullet_jump()
+
+
+func _set_hex_shoot_flags() -> void:
+	_bullets_free_shooting = !_bullets_free_shooting
+
+	# Setting Timer to play if in time based hex mode
+	if !_bullets_free_shooting and !_bullets_jump_with_player:
+		$BulletJumpTimer.start()
+	else:
+		$BulletJumpTimer.stop()

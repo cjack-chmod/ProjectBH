@@ -5,6 +5,7 @@ extends Node
 #####################################
 signal spawn_building(tilemap_coords: Vector2)
 signal toogle_bullet_shoot_mode
+signal bullet_jump
 
 #####################################
 # Player Signals
@@ -22,6 +23,10 @@ func emit_spawn_building(_tilemap_coords: Vector2) -> void:
 
 func emit_toogle_bullet_shoot_mode() -> void:
 	toogle_bullet_shoot_mode.emit()
+
+
+func emit_bullet_jump() -> void:
+	bullet_jump.emit()
 
 
 #####################################

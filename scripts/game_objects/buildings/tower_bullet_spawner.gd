@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 # this is temporary bandaid because the tileset i was using isn't symmetrical :(
-const Y_ELONGATION: float = 1 + (110.0 / 96.0 - 1) / 2.5
+const Y_ELONGATION: float = 1  #+ (110.0 / 96.0 - 1) / 2.5 commenting out
 
 @export_group("Free Shoot Variables")
 @export var num_spawn_points: int = 4
@@ -156,8 +156,10 @@ func _hex_shoot_shoot() -> void:
 	var i: int = 0
 	for s: Node2D in rotater.get_children():
 		var _scene: Node2D = _bullet.instantiate()
-		get_tree().root.add_child(_scene)
 		_scene.can_free_move = false
+		_scene.tile_map = tile_map
+		get_tree().root.add_child(_scene)
 		_scene.velocity = _bullet_speed * _hex_vel_dirs[i]
+		_scene.last_dir = GlobalTileFunctions.hex_dirs[i]
 		i += 1
 		_scene.position = s.position
