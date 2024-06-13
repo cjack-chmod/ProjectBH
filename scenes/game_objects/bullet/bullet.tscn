@@ -21,7 +21,7 @@ mesh = SubResource("SphereMesh_j30c2")
 shape = SubResource("CircleShape2D_pjoso")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 150.0
 autostart = true
 
 [node name="HexStartTimer" type="Timer" parent="."]

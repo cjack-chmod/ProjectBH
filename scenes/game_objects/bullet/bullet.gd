@@ -13,11 +13,8 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if can_free_move:
-		position += transform.x * speed * _delta
-	else:
-		if velocity != Vector2.ZERO:
-			move_and_slide()
+	if velocity != Vector2.ZERO:
+		move_and_slide()
 
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
@@ -36,7 +33,7 @@ func _on_hex_start_timer_timeout() -> void:
 	if !can_free_move:
 		velocity = Vector2.ZERO
 		_current_tile = GlobalTileFunctions.find_tile_coordinates(self.global_position, tile_map)
-		_move_to_tile_centre(_current_tile, 0.15)
+		_move_to_tile_centre(_current_tile, 0.01)
 		_ready_for_jump = true
 
 

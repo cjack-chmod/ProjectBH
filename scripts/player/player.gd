@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var timed_bullet_spawn_interval: float = 1.5
+
 # Health Variables
 var _max_health: float = 100.0
 var _current_health: float = 100.0
@@ -10,7 +12,6 @@ var _move_speed: float = 250.0
 # Flags
 var _free_move: bool = true
 var _hex_input_paused: bool = false
-var _bullets_free_shooting: bool = true
 var _bullets_jump_with_player: bool = false
 
 @onready var tile_map: TileMap = get_parent().get_node("HexTilemap")
@@ -21,6 +22,7 @@ func _ready() -> void:
 	GlobalEvents.toggle_player_movement_mode.connect(_toggle_movement)
 	_current_health = _max_health
 	GlobalEvents.emit_player_health_changed(_current_health, _max_health)
+	$BulletJumpTimer.wait_time = timed_bullet_spawn_interval
 
 
 # Input Function To Call Movement Function When Relevant Movement Key is pressed in hex based mode
@@ -105,6 +107,9 @@ func _find_and_move_to_adjacent_tile(_direction: GlobalTileFunctions.HEXDIR) -> 
 	# moving to centre of that tile
 	_move_to_tile_centre(_new_tile, 0.3)
 
+	if _bullets_jump_with_player:
+		GlobalEvents.emit_bullet_jump()
+
 
 # Minus Health and die if less than 0
 func take_damage(_damage: float) -> void:
@@ -129,6 +134,7 @@ func _damage_flash() -> void:
 
 # reload if die
 func _die() -> void:
+	await get_tree().create_timer(0.2).timeout
 	get_tree().call_deferred("reload_current_scene")
 
 
@@ -138,10 +144,11 @@ func _on_bullet_jump_timer_timeout() -> void:
 
 
 func _set_hex_shoot_flags() -> void:
-	_bullets_free_shooting = !_bullets_free_shooting
+	if !_free_move:
+		_bullets_jump_with_player = !_bullets_jump_with_player
 
 	# Setting Timer to play if in time based hex mode
-	if !_bullets_free_shooting and !_bullets_jump_with_player:
+	if !_bullets_jump_with_player:
 		$BulletJumpTimer.start()
 	else:
 		$BulletJumpTimer.stop()

@@ -12,6 +12,7 @@ can_click_tile = false
 
 [node name="Player" parent="." instance=ExtResource("2_jflqx")]
 position = Vector2(-400, -93)
+timed_bullet_spawn_interval = 1.2
 
 [node name="BuildingLayer" type="Node" parent="."]
 script = ExtResource("4_opsof")
