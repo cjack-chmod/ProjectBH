@@ -1,0 +1,36 @@
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://7blhmgivfvhp"]
+
+[ext_resource type="Texture2D" uid="uid://nlmoucevmfjr" path="res://resources/tilemaps/TilemapSuggestion/empty_hex.png" id="1_jb33p"]
+[ext_resource type="Texture2D" uid="uid://dulc3vvsvk6n6" path="res://resources/tilemaps/TilemapSuggestion/opaquehex.png" id="2_scv8u"]
+[ext_resource type="Texture2D" uid="uid://cisyqjxkfwrnt" path="res://resources/tilemaps/TilemapSuggestion/opaquehex_paper.png" id="3_wu5tm"]
+[ext_resource type="Texture2D" uid="uid://uopc7isaxae6" path="res://resources/tilemaps/TilemapSuggestion/white_empty_hex.png" id="4_r5h7w"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6oi4r"]
+texture = ExtResource("1_jb33p")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_twqms"]
+texture = ExtResource("2_scv8u")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uho7h"]
+texture = ExtResource("3_wu5tm")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vrimc"]
+texture = ExtResource("4_r5h7w")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[resource]
+tile_shape = 3
+tile_layout = 1
+tile_offset_axis = 1
+tile_size = Vector2i(44, 32)
+sources/0 = SubResource("TileSetAtlasSource_6oi4r")
+sources/1 = SubResource("TileSetAtlasSource_twqms")
+sources/2 = SubResource("TileSetAtlasSource_uho7h")
+sources/3 = SubResource("TileSetAtlasSource_vrimc")

@@ -21,9 +21,20 @@ position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_ehlod")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
+zoom = Vector2(5, 5)
 
-[node name="PlaceHolderUI" parent="." instance=ExtResource("2_eo7g8")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlaceHolderUI" parent="CanvasLayer" instance=ExtResource("2_eo7g8")]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="HurtSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_aecyb")

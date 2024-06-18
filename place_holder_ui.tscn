@@ -25,15 +25,18 @@ script = ExtResource("1_7xn5n")
 
 [node name="TogglePlayerMovement" type="Button" parent="."]
 layout_mode = 1
+offset_top = 25.0
 offset_right = 199.0
-offset_bottom = 31.0
+offset_bottom = 56.0
+scale = Vector2(2, 2)
 text = "Toggle Player Movement"
 
 [node name="ToggleBulletMode" type="Button" parent="."]
 layout_mode = 1
-offset_top = 35.0
+offset_top = 100.0
 offset_right = 199.0
-offset_bottom = 66.0
+offset_bottom = 131.0
+scale = Vector2(2, 2)
 text = "Toggle Bullet Mode
 "
 

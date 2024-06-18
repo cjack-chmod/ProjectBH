@@ -6,6 +6,7 @@ var _current_health: float = 100.0
 
 # Movement Variables
 var _move_speed: float = 250.0
+@export var _tween_speed: float = 0.1
 
 # Flags
 var _free_move: bool = true
@@ -65,7 +66,7 @@ func _toggle_movement() -> void:
 		)
 
 		# Moving to new tile
-		_move_to_tile_centre(_current_tile_coords, 0.2)
+		_move_to_tile_centre(_current_tile_coords, _tween_speed)
 
 	# Code to unlock Player to free movement
 	else:
@@ -101,7 +102,7 @@ func _find_and_move_to_adjacent_tile(_direction: GlobalTileFunctions.HEXDIR) -> 
 	)
 
 	# moving to centre of that tile
-	_move_to_tile_centre(_new_tile, 0.3)
+	_move_to_tile_centre(_new_tile, _tween_speed)
 
 
 # Minus Health and die if less than 0
