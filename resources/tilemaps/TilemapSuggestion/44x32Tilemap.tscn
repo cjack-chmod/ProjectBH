@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bu7fm4viib2hw"]
+[gd_scene load_steps=10 format=3 uid="uid://bu7fm4viib2hw"]
 
 [ext_resource type="Texture2D" uid="uid://nlmoucevmfjr" path="res://resources/tilemaps/TilemapSuggestion/empty_hex.png" id="1_lajq4"]
 [ext_resource type="Script" path="res://resources/tilemaps/TilemapSuggestion/AlexTest.gd" id="2_pq23q"]
@@ -9,12 +9,18 @@ texture = ExtResource("1_lajq4")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cjrjg"]
+texture = ExtResource("3_fjbkf")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_5hct1"]
 tile_shape = 3
 tile_layout = 1
 tile_offset_axis = 1
 tile_size = Vector2i(44, 32)
 sources/0 = SubResource("TileSetAtlasSource_haica")
+sources/1 = SubResource("TileSetAtlasSource_cjrjg")
 
 [sub_resource type="Curve" id="Curve_dht40"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -33,7 +39,7 @@ alpha_curve = SubResource("CurveTexture_7tkfy")
 position = Vector2(38, -58)
 tile_set = SubResource("TileSet_5hct1")
 format = 2
-layer_0/tile_data = PackedInt32Array(65535, 0, 0, -1, 0, 0, -65536, 0, 0, 0, 0, 0)
+layer_0/tile_data = PackedInt32Array(65535, 0, 0, -1, 0, 0, -65536, 0, 0, 0, 0, 0, -2, 1, 0, -65538, 1, 0, -3, 1, 0, -65539, 0, 0, -65540, 0, 0, -131076, 0, 0, -65541, 0, 0)
 script = ExtResource("2_pq23q")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]

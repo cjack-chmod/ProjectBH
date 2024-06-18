@@ -74,6 +74,7 @@ func _toggle_movement() -> void:
 
 # function that takes a tile coord and moves player to centre of tile
 func _move_to_tile_centre(_tile_coords: Vector2, _tween_weight: float) -> void:
+	# print(_tile_coords)
 	_hex_input_paused = true
 
 	# finding centre of tile to set
