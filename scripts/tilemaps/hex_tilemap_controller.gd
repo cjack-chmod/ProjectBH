@@ -15,22 +15,20 @@ func _input(event: InputEvent) -> void:
 			# Translates to which map coord it is in
 			var _pos_clicked: Vector2 = local_to_map(to_local(_global_clicked))
 			print(_pos_clicked)
-
 			# Emitting Spawn Building Signal at Centre Target Tile
 			var _global_tile_pos: Vector2 = map_to_local(to_global(_pos_clicked))
 			GlobalEvents.emit_spawn_building(_global_tile_pos)
-
 			# Calling toggle cell colour fnc
 			_toggle_alt_cell(_pos_clicked)
 
+
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
 			var _global_clicked: Vector2 = get_local_mouse_position()
-			# Translates to which map coord it is in
 			var _pos_clicked: Vector2 = local_to_map(to_local(_global_clicked))
-			
-			
+			print(_pos_clicked)
+			var _global_tile_pos: Vector2 = map_to_local(to_global(_pos_clicked))
+			GlobalEvents.emit_warp_player(_global_tile_pos)
 
-			pass
 
 func _toggle_alt_cell(_pos_clicked: Vector2) -> void:
 	# Finds the cell in the atlas and its current alt

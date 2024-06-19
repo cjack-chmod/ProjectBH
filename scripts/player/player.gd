@@ -14,6 +14,9 @@ var _hex_input_paused: bool = false
 
 @onready var tile_map: TileMap = get_parent().get_node("HexTilemap")
 
+# Animation
+@onready var animation_player: AnimationPlayer = get_node("AnimationPlayer") 
+
 
 func _ready() -> void:
 	GlobalEvents.toggle_player_movement_mode.connect(_toggle_movement)
@@ -23,6 +26,7 @@ func _ready() -> void:
 
 # Input Function To Call Movement Function When Relevant Movement Key is pressed in hex based mode
 func _input(_event: InputEvent) -> void:
+	
 	# hex based mode only
 	if !_free_move and !_hex_input_paused:
 		if Input.is_action_just_pressed("up"):
@@ -38,6 +42,14 @@ func _input(_event: InputEvent) -> void:
 		elif Input.is_action_just_pressed("right_up"):
 			_find_and_move_to_adjacent_tile(GlobalTileFunctions.HEXDIR.RIGHT_UP)
 
+func _warp_player(target_tile: Vector2) -> void:
+	# I would eventually like to differentiate this for some camerawork
+	# For now I'll just call on _move_to_tile_centre
+	pass
+
+# Animation test.
+func _cast_spell() -> void:
+	animation_player.play("cast")
 
 func _physics_process(_delta: float) -> void:
 	# Free movement code
