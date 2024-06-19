@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgfjj60ulo8mg"]
+[gd_scene load_steps=7 format=3 uid="uid://dgfjj60ulo8mg"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_jwbjq"]
 [ext_resource type="PackedScene" uid="uid://4c6jg4p4sml3" path="res://place_holder_ui.tscn" id="2_eo7g8"]
 [ext_resource type="AudioStream" uid="uid://dcmkq0hhuorew" path="res://scenes/player/ohh.wav" id="3_aecyb"]
+[ext_resource type="PackedScene" uid="uid://sooiuymu8sms" path="res://scenes/player/animation_player.tscn" id="4_34fvm"]
+[ext_resource type="Texture2D" uid="uid://b568lst3wedbm" path="res://scenes/player/WizardSpritesheet.png" id="4_x026j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ehlod"]
 
@@ -10,6 +12,7 @@
 script = ExtResource("1_jwbjq")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_left = -10.0
 offset_top = -23.0
 offset_right = 10.0
@@ -39,3 +42,12 @@ offset_bottom = 0.0
 [node name="HurtSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_aecyb")
 pitch_scale = 1.2
+
+[node name="AnimationPlayer" parent="." instance=ExtResource("4_34fvm")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(10, -20)
+texture = ExtResource("4_x026j")
+flip_h = true
+hframes = 3
+vframes = 3
