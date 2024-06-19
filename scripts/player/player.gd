@@ -37,13 +37,14 @@ func _input(_event: InputEvent) -> void:
 	if _event is InputEventMouseButton:
 		if _event.button_index == MOUSE_BUTTON_RIGHT and _event.is_pressed():
 			var _global_clicked: Vector2 = get_local_mouse_position()
-			var _pos_clicked: Vector2 = tile_map.local_to_map(to_local(_global_clicked))
+			_global_clicked = to_global(_global_clicked)
+			var _pos_clicked: Vector2 = tile_map.local_to_map(tile_map.to_local(_global_clicked))
 
 			var _anim: Animation = animation_player.get_animation("teleport")
 			var _track_id: int = _anim.find_track(_anim.track_get_path(7),_anim.track_get_type(7))
 			var _key_id: int = _anim.track_find_key(_track_id, 0.7)
 			
-			print(_anim.track_get_key_value(_track_id, _key_id))			
+			print(_anim.track_get_key_value(_track_id, _key_id))
 			var _key_value_dictionary: Dictionary = {
 				"method": &"_teleport_player",
 				"args": [Vector2(_pos_clicked.x,_pos_clicked.y)]
