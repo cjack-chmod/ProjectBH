@@ -1,5 +1,13 @@
 extends CharacterBody2D
 
+####################################################
+# Cals Comment
+# Code in this script is used for the player
+# It controls the two different movement states based on this flag "_free_move"
+# Also toggles the movement state based on connected signals from the buttons in place_holder_ui.gd
+####################################################
+
+# Bullet timing
 @export var timed_bullet_spawn_interval: float = 1.5
 
 # Health Variables
@@ -14,18 +22,25 @@ var _free_move: bool = true
 var _hex_input_paused: bool = false
 var _bullets_jump_with_player: bool = false
 
+# gets the tile map of the current scene (want a better way to do this in the future)
 @onready var tile_map: TileMap = get_parent().get_node("HexTilemap")
 
 
 func _ready() -> void:
+	# Connecting events so toggle buttons work
 	GlobalEvents.toogle_bullet_shoot_mode.connect(_set_hex_shoot_flags)
 	GlobalEvents.toggle_player_movement_mode.connect(_toggle_movement)
+
+	# Setting current health and UI bar
 	_current_health = _max_health
 	GlobalEvents.emit_player_health_changed(_current_health, _max_health)
+
+	# Starts the bullet timer since that is the default mode
 	$BulletJumpTimer.wait_time = timed_bullet_spawn_interval
 
 
 # Input Function To Call Movement Function When Relevant Movement Key is pressed in hex based mode
+# Definitely want to refactor this a bit smarter
 func _input(_event: InputEvent) -> void:
 	# hex based mode only
 	if !_free_move and !_hex_input_paused:
@@ -43,6 +58,7 @@ func _input(_event: InputEvent) -> void:
 			_find_and_move_to_adjacent_tile(GlobalTileFunctions.HEXDIR.RIGHT_UP)
 
 
+# Applies velocity if player can free move
 func _physics_process(_delta: float) -> void:
 	# Free movement code
 	if _free_move:
@@ -51,16 +67,11 @@ func _physics_process(_delta: float) -> void:
 		# Move Player
 		velocity = _move_input * _move_speed
 		move_and_slide()
-	else:
-		pass
 
 
 func _toggle_movement() -> void:
 	# Code to set player to locked in centre of tile
 	if _free_move:
-		# toggling flag
-		_free_move = false
-
 		# Setting vel to 0
 		velocity = Vector2.ZERO
 
@@ -72,27 +83,24 @@ func _toggle_movement() -> void:
 		# Moving to new tile
 		_move_to_tile_centre(_current_tile_coords, 0.2)
 
-	# Code to unlock Player to free movement
-	else:
-		_free_move = true
+	# Toggles Flag
+	_free_move = !_free_move
 
 
 # function that takes a tile coord and moves player to centre of tile
 func _move_to_tile_centre(_tile_coords: Vector2, _tween_weight: float) -> void:
+	# Pauses movement input while moving
 	_hex_input_paused = true
 
-	# finding centre of tile to set
-	var _new_position: Vector2 = GlobalTileFunctions.find_centre_of_tile(_tile_coords, tile_map)
+	# Calls global move function
+	GlobalTileFunctions.move_to_tile_centre(self, _tile_coords, tile_map, _tween_weight)
 
-	# tweening position
-	var _tween: Tween = get_tree().create_tween()
-	_tween.tween_property(self, "global_position", _new_position, _tween_weight)
-	await _tween.finished
-
+	# Allows movement again
 	_hex_input_paused = false
 
 
 # Function to find and move to the adjacent tile to the player given just direction
+# This is called whenever a qweasd key input is registered while in hex jump movement mode
 func _find_and_move_to_adjacent_tile(_direction: GlobalTileFunctions.HEXDIR) -> void:
 	# Finding Current Player Tile
 	var _current_tile: Vector2 = GlobalTileFunctions.find_tile_coordinates(
@@ -107,6 +115,7 @@ func _find_and_move_to_adjacent_tile(_direction: GlobalTileFunctions.HEXDIR) -> 
 	# moving to centre of that tile
 	_move_to_tile_centre(_new_tile, 0.3)
 
+	# Emit signal for bullet jump if in that mode
 	if _bullets_jump_with_player:
 		GlobalEvents.emit_bullet_jump()
 
@@ -125,6 +134,7 @@ func take_damage(_damage: float) -> void:
 		_die()
 
 
+# flashes player sprite
 func _damage_flash() -> void:
 	# Flashing Char Red When Being Damaged
 	$ColorRect.modulate = Color.RED
@@ -138,11 +148,13 @@ func _die() -> void:
 	get_tree().call_deferred("reload_current_scene")
 
 
+# Timer that makes the bullets jump if in timed mode
 func _on_bullet_jump_timer_timeout() -> void:
 	if !_bullets_jump_with_player:
 		GlobalEvents.emit_bullet_jump()
 
 
+# Function to manage flags when hex shoot button is toggled
 func _set_hex_shoot_flags() -> void:
 	if !_free_move:
 		_bullets_jump_with_player = !_bullets_jump_with_player

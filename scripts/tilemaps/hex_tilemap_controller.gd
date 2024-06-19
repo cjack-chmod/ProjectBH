@@ -1,5 +1,13 @@
 extends TileMap
 
+####################################################
+# Cals Comment
+# Code in this script is used if we want to click on the tilemap and execute anything based on that
+# Currently it toggles the cell to its alt colour (if there is one) and spawns a building
+# Can be enabled or disabled by the export var "can_click_tile"
+####################################################
+
+# Some predefined info about the tile map and layer
 const MAIN_LAYER: int = 0
 const MAIN_ATLAS_ID: int = 0
 
@@ -14,7 +22,6 @@ func _input(event: InputEvent) -> void:
 			var _global_clicked: Vector2 = get_local_mouse_position()
 			# Translates to which map coord it is in
 			var _pos_clicked: Vector2 = local_to_map(to_local(_global_clicked))
-			print(_pos_clicked)
 			# Emitting Spawn Building Signal at Centre Target Tile
 			var _global_tile_pos: Vector2 = map_to_local(to_global(_pos_clicked))
 			GlobalEvents.emit_spawn_building(_global_tile_pos)

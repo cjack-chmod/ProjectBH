@@ -1,7 +1,14 @@
 extends Node
 
+####################################################
+# Cals Comment
+# This script defines a bunch of common variables and functions for use on the tile map grid
+####################################################
+
+# enum of the 6 possible hex directions
 enum HEXDIR { UP, DOWN, LEFT_UP, LEFT_DOWN, RIGHT_UP, RIGHT_DOWN }
 
+# Array of the hex dirs to order in an array (this can get reworked at some point)
 var hex_dirs: Array[GlobalTileFunctions.HEXDIR] = [
 	GlobalTileFunctions.HEXDIR.DOWN,
 	GlobalTileFunctions.HEXDIR.UP,
@@ -42,3 +49,16 @@ func find_adjacent_tile(_tile_coords: Vector2, _direction: HEXDIR, _tile_map: Ti
 
 	# else return same
 	return _tile_coords
+
+
+# move to centre of the tile given the new tiles coords, and other necessary params
+func move_to_tile_centre(
+	object: Node2D, _tile_coords: Vector2i, _tile_map: TileMap, _tween_weight: float
+) -> void:
+	# finding centre of tile to set
+	var _new_position: Vector2 = find_centre_of_tile(_tile_coords, _tile_map)
+
+	# tweening position
+	var _tween: Tween = get_tree().create_tween()
+	_tween.tween_property(object, "global_position", _new_position, _tween_weight)
+	await _tween.finished
