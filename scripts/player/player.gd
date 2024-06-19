@@ -15,7 +15,8 @@ var _hex_input_paused: bool = false
 @onready var tile_map: TileMap = get_parent().get_node("HexTilemap")
 
 # Animation
-@onready var animation_player: AnimationPlayer = get_node("AnimationPlayer") 
+@onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
+@onready var animation_sprite: Sprite2D = get_node("Sprite2D")
 
 
 func _ready() -> void:
@@ -23,10 +24,35 @@ func _ready() -> void:
 	_current_health = _max_health
 	GlobalEvents.emit_player_health_changed(_current_health, _max_health)
 
+	animation_player.play("idle")
+	animation_sprite.modulate.a = 1
+
 
 # Input Function To Call Movement Function When Relevant Movement Key is pressed in hex based mode
 func _input(_event: InputEvent) -> void:
-	
+
+	if Input.is_action_just_pressed("cast_spell"):
+		_cast_spell()
+
+	if _event is InputEventMouseButton:
+		if _event.button_index == MOUSE_BUTTON_RIGHT and _event.is_pressed():
+			var _global_clicked: Vector2 = get_local_mouse_position()
+			var _pos_clicked: Vector2 = tile_map.local_to_map(to_local(_global_clicked))
+
+			var _anim: Animation = animation_player.get_animation("teleport")
+			var _track_id: int = _anim.find_track(_anim.track_get_path(7),_anim.track_get_type(7))
+			var _key_id: int = _anim.track_find_key(_track_id, 0.7)
+			
+			print(_anim.track_get_key_value(_track_id, _key_id))			
+			var _key_value_dictionary: Dictionary = {
+				"method": &"_teleport_player",
+				"args": [Vector2(_pos_clicked.x,_pos_clicked.y)]
+			}
+			
+			_anim.track_set_key_value(_track_id, _key_id, _key_value_dictionary)
+			print(_anim.track_get_key_value(_track_id, _key_id))
+			animation_player.play("teleport")
+
 	# hex based mode only
 	if !_free_move and !_hex_input_paused:
 		if Input.is_action_just_pressed("up"):
@@ -34,21 +60,30 @@ func _input(_event: InputEvent) -> void:
 		elif Input.is_action_just_pressed("down"):
 			_find_and_move_to_adjacent_tile(GlobalTileFunctions.HEXDIR.DOWN)
 		elif Input.is_action_just_pressed("left"):
+			animation_sprite.flip_h = false;
+			animation_sprite.offset = Vector2(-20,0)
 			_find_and_move_to_adjacent_tile(GlobalTileFunctions.HEXDIR.LEFT_DOWN)
 		elif Input.is_action_just_pressed("left_up"):
-			_find_and_move_to_adjacent_tile(GlobalTileFunctions.HEXDIR.LEFT_UP)
+			animation_sprite.flip_h = false;
+			animation_sprite.offset = Vector2(-20,0)	
+			_find_and_move_to_adjacent_tile(GlobalTileFunctions.HEXDIR.LEFT_UP)			
 		elif Input.is_action_just_pressed("right"):
-			_find_and_move_to_adjacent_tile(GlobalTileFunctions.HEXDIR.RIGHT_DOWN)
+			animation_sprite.flip_h = true;
+			animation_sprite.offset = Vector2(0,0)
+			_find_and_move_to_adjacent_tile(GlobalTileFunctions.HEXDIR.RIGHT_DOWN)			
 		elif Input.is_action_just_pressed("right_up"):
+			animation_sprite.flip_h = true;
+			animation_sprite.offset = Vector2(0,0)
 			_find_and_move_to_adjacent_tile(GlobalTileFunctions.HEXDIR.RIGHT_UP)
 
-func _warp_player(target_tile: Vector2) -> void:
-	# I would eventually like to differentiate this for some camerawork
-	# For now I'll just call on _move_to_tile_centre
-	pass
+
+func _teleport_player(target_tile: Vector2) -> void:
+	print(target_tile)
+	_move_to_tile_centre(target_tile, _tween_speed)
 
 # Animation test.
 func _cast_spell() -> void:
+	print(tile_map.local_to_map(position))
 	animation_player.play("cast")
 
 func _physics_process(_delta: float) -> void:
@@ -61,7 +96,8 @@ func _physics_process(_delta: float) -> void:
 		move_and_slide()
 	else:
 		pass
-
+	if !animation_player.is_playing():
+		animation_player.play("idle")
 
 func _toggle_movement() -> void:
 	# Code to set player to locked in centre of tile
