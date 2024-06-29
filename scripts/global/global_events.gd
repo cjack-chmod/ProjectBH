@@ -12,6 +12,7 @@ signal bullet_jump
 #####################################
 signal toggle_player_movement_mode
 signal player_health_changed(_cur_health: float, _max_health: float)
+signal player_shoot(_dir: Vector2)
 
 
 #####################################
@@ -38,3 +39,7 @@ func emit_toggle_player_movement_mode() -> void:
 
 func emit_player_health_changed(_cur_health: float, _max_health: float) -> void:
 	player_health_changed.emit(_cur_health, _max_health)
+
+
+func emit_player_shoot(_dir: Vector2) -> void:
+	player_shoot.emit(_dir)

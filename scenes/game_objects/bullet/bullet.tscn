@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkdljm38sr1jq"]
+[gd_scene load_steps=5 format=3 uid="uid://bkdljm38sr1jq"]
 
 [ext_resource type="Script" path="res://scenes/game_objects/bullet/bullet.gd" id="1_866sv"]
 
@@ -8,6 +8,9 @@ height = 15.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pjoso"]
 radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4l573"]
+radius = 9.0
 
 [node name="Bullet" type="CharacterBody2D"]
 script = ExtResource("1_866sv")
@@ -29,6 +32,13 @@ wait_time = 0.2
 one_shot = true
 autostart = true
 
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_4l573")
+
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="HexStartTimer" to="." method="_on_hex_start_timer_timeout"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

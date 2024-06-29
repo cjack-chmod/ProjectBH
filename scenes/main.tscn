@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cul0jw30yqmv7"]
+[gd_scene load_steps=6 format=3 uid="uid://cul0jw30yqmv7"]
 
 [ext_resource type="PackedScene" uid="uid://b511scjyws11e" path="res://scenes/tilemaps/hex_tilemap.tscn" id="1_ho06m"]
 [ext_resource type="PackedScene" uid="uid://dgfjj60ulo8mg" path="res://scenes/player/player.tscn" id="2_jflqx"]
 [ext_resource type="Script" path="res://scripts/game_objects/buildings/building_spawner.gd" id="4_opsof"]
 [ext_resource type="PackedScene" uid="uid://bpxt2mk74udo5" path="res://scenes/game_objects/towers/ExampleTower.tscn" id="4_yc7gc"]
+[ext_resource type="AudioStream" uid="uid://cwt8lrma1lkkb" path="res://assets/music/11. Flanger Party.wav" id="5_yf1hs"]
 
 [node name="Main" type="Node2D"]
 
@@ -18,7 +19,26 @@ timed_bullet_spawn_interval = 1.2
 script = ExtResource("4_opsof")
 
 [node name="ExampleTower" parent="BuildingLayer" instance=ExtResource("4_yc7gc")]
-position = Vector2(-176, -142)
+position = Vector2(-329, -561)
+
+[node name="ExampleTower3" parent="BuildingLayer" instance=ExtResource("4_yc7gc")]
+position = Vector2(-747, -281)
+
+[node name="ExampleTower4" parent="BuildingLayer" instance=ExtResource("4_yc7gc")]
+position = Vector2(-1063, 418)
 
 [node name="ExampleTower2" parent="BuildingLayer" instance=ExtResource("4_yc7gc")]
 position = Vector2(-22, -227)
+
+[node name="ExampleTower5" parent="BuildingLayer" instance=ExtResource("4_yc7gc")]
+position = Vector2(28, 455)
+
+[node name="ExampleTower6" parent="BuildingLayer" instance=ExtResource("4_yc7gc")]
+position = Vector2(-597, 696)
+
+[node name="MusicPlaceHolder" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicPlaceHolder"]
+stream = ExtResource("5_yf1hs")
+volume_db = -10.0
+autoplay = true

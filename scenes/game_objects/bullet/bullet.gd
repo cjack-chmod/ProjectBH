@@ -32,6 +32,13 @@ func _on_timer_timeout() -> void:
 	call_deferred("queue_free")
 
 
+func _on_hit_box_area_entered(_area: Area2D) -> void:
+	# destroys both bullets if hit by player bullet
+	# this is a spaghetti way to destroy the player bullet, need to refactor
+	_area.get_parent().call_deferred("queue_free")
+	call_deferred("queue_free")
+
+
 # I dont remember what this logic here is but it breaks without it
 # refactor out later
 func _on_hex_start_timer_timeout() -> void:

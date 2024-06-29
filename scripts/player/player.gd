@@ -9,10 +9,13 @@ extends CharacterBody2D
 
 # Bullet timing
 @export var timed_bullet_spawn_interval: float = 1.5
+@export var player_can_shoot_with_mouse: bool = true
+@export var player_shots_per_turn: int = 2
 
 # Health Variables
 var _max_health: float = 100.0
 var _current_health: float = 100.0
+var _player_shots_per_turn_remaining: float = player_shots_per_turn
 
 # Movement Variables
 var _move_speed: float = 250.0
@@ -57,6 +60,18 @@ func _input(_event: InputEvent) -> void:
 		elif Input.is_action_just_pressed("right_up"):
 			_find_and_move_to_adjacent_tile(GlobalTileFunctions.HEXDIR.RIGHT_UP)
 
+	# If mouse button and can shoot
+	if _event is InputEventMouseButton and player_can_shoot_with_mouse:
+		# If LMB Pressed
+		if _event.button_index == MOUSE_BUTTON_LEFT and _event.is_pressed():
+			# find vector from player to mouse and emits the shoot signal with that
+			var _dir: Vector2 = (get_global_mouse_position() - self.global_position).normalized()
+
+			# If player is in free move or bullets jump with player and has some remaining
+			if !_bullets_jump_with_player or _player_shots_per_turn_remaining > 0:
+				_player_shots_per_turn_remaining -= 1
+				GlobalEvents.emit_player_shoot(_dir)
+
 
 # Applies velocity if player can free move
 func _physics_process(_delta: float) -> void:
@@ -70,6 +85,9 @@ func _physics_process(_delta: float) -> void:
 
 
 func _toggle_movement() -> void:
+	# Reset shot count
+	_player_shots_per_turn_remaining = player_shots_per_turn
+
 	# Code to set player to locked in centre of tile
 	if _free_move:
 		# Setting vel to 0
@@ -115,8 +133,9 @@ func _find_and_move_to_adjacent_tile(_direction: GlobalTileFunctions.HEXDIR) -> 
 	# moving to centre of that tile
 	_move_to_tile_centre(_new_tile, 0.3)
 
-	# Emit signal for bullet jump if in that mode
+	# Emit signal for bullet jump if in that mode and reset shot count
 	if _bullets_jump_with_player:
+		_player_shots_per_turn_remaining = player_shots_per_turn
 		GlobalEvents.emit_bullet_jump()
 
 
@@ -156,6 +175,9 @@ func _on_bullet_jump_timer_timeout() -> void:
 
 # Function to manage flags when hex shoot button is toggled
 func _set_hex_shoot_flags() -> void:
+	# reset shooting flags
+	_player_shots_per_turn_remaining = player_shots_per_turn
+
 	if !_free_move:
 		_bullets_jump_with_player = !_bullets_jump_with_player
 

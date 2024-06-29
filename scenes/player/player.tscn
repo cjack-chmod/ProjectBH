@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgfjj60ulo8mg"]
+[gd_scene load_steps=7 format=3 uid="uid://dgfjj60ulo8mg"]
 
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1_jwbjq"]
 [ext_resource type="PackedScene" uid="uid://4c6jg4p4sml3" path="res://place_holder_ui.tscn" id="2_eo7g8"]
 [ext_resource type="AudioStream" uid="uid://dcmkq0hhuorew" path="res://scenes/player/ohh.wav" id="3_aecyb"]
+[ext_resource type="Script" path="res://scripts/player/player_shoot_node.gd" id="4_0mb87"]
+[ext_resource type="AudioStream" uid="uid://t2dyx2vm1an2" path="res://scenes/player/S_Gunshot_.wav" id="5_r6sdh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ehlod"]
 
@@ -33,5 +35,11 @@ pitch_scale = 1.2
 [node name="BulletJumpTimer" type="Timer" parent="."]
 wait_time = 1.2
 autostart = true
+
+[node name="PlayerShootNode" type="Node" parent="."]
+script = ExtResource("4_0mb87")
+
+[node name="ShootSFX" type="AudioStreamPlayer" parent="PlayerShootNode"]
+stream = ExtResource("5_r6sdh")
 
 [connection signal="timeout" from="BulletJumpTimer" to="." method="_on_bullet_jump_timer_timeout"]
