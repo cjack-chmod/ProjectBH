@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cec4f1bqkn06t"]
+
+[ext_resource type="TileSet" uid="uid://7blhmgivfvhp" path="res://resources/tilemaps/TilemapSuggestion/44x32_tileset.tres" id="1_guh7r"]
+[ext_resource type="Texture2D" uid="uid://uopc7isaxae6" path="res://resources/tilemaps/TilemapSuggestion/white_empty_hex.png" id="2_hgh78"]
+
+[sub_resource type="Curve" id="Curve_dht40"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7tkfy"]
+curve = SubResource("Curve_dht40")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b8yti"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -30, 0)
+color = Color(0.971258, 0.701628, 0.122286, 1)
+alpha_curve = SubResource("CurveTexture_7tkfy")
+
+[node name="HexTilemap" type="TileMap"]
+tile_set = ExtResource("1_guh7r")
+format = 2
+layer_0/tile_data = PackedInt32Array(65535, 2, 0, -1, 0, 0, -65536, 0, 0, 0, 0, 0, -2, 2, 0, -65538, 2, 0, -3, 2, 0, -65539, 0, 0, -65540, 0, 0, -131076, 0, 0, -65541, 0, 0, 65534, 2, 0, -4, 2, 0, 65533, 2, 0, -5, 0, 0, 65532, 0, 0, 65531, 0, 0, 131069, 0, 0, -65550, 0, 0, -65551, 0, 0, -15, 0, 0, 65521, 0, 0, -14, 0, 0, -65545, 3, 0, -131081, 3, 0, -196618, 3, 0, -8, 3, 0, -7, 3, 0, -6, 3, 0, -65542, 0, 0, -131082, 2, 0, -65547, 2, 0, -65548, 2, 0, -13, 2, 0, -131083, 2, 0, -131084, 2, 0, -65549, 2, 0, -65546, 2, 0, -9, 2, 0, -65544, 2, 0, 65523, 1, 0, -12, 1, 0, -11, 1, 0, -10, 1, 0, 65525, 1, 0, 65527, 1, 0, 65524, 3, 0, 131059, 3, 0, 65522, 3, 0, -16, 3, 0, -131086, 3, 0, -131085, 3, 0, -131080, 3, 0, -65543, 3, 0, 65530, 3, 0, 65529, 3, 0, -196617, 3, 0, -196616, 3, 0, -196620, 3, 0, -196619, 3, 0, 131063, 3, 0, 65526, 3, 0, 65520, 3, 0, 131057, 3, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-11, -16)
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_b8yti")
+texture = ExtResource("2_hgh78")
